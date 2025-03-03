@@ -1,0 +1,163 @@
+.shop-by-category-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 50px;
+}
+.shop-by-category-top .category-tabs {
+    gap: 40px;
+    align-items: center;
+    flex: 1;
+    margin: 0;
+}
+.shop-by-category-top .section-heading {
+    margin: 0;
+}
+.shop-by-category-top .category-tabs .category-tab {
+    font-size: 14px;
+    padding: 0;
+    text-decoration: none;
+    transition: all .2s ease;
+    position: relative;
+}
+.shop-by-category-top .category-tabs .category-tab:after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: currentColor;
+    pointer-events: none;
+    opacity: 0;
+}
+.shop-by-category-top .category-tabs .category-tab.active:after {
+    opacity: 1;
+}
+.category-navigation .link {
+    font-size: 18px;
+}
+.category-navigation .swiper-button-prev, .category-navigation .swiper-button-next {
+    position: unset;
+    width: 40px;
+    height: 40px;
+    background: #F5F5F5;
+    border: 1px solid #1B1F231A;
+    border-radius: 4px;
+    margin: 0;
+}
+.category-navigation .swiper-button-prev:after, .category-navigation .swiper-button-next:after {
+    display: none;
+}
+.category-navigation .swiper-button-prev svg, .category-navigation .swiper-button-next svg {
+    width: 12px;
+    height: auto;
+}
+.category-navigation {
+    flex: 0 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+}
+.swiper-navigation-wrapper {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.shop-by-category-section .swiper-wrapper {
+    padding: 0;
+}
+.shop-by-category-section .swiper-slide {
+    height: auto;
+}
+.shop-by-category-section .product-card-wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.shop-by-category-section .product-card-wrapper .card {
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    height: auto;
+}
+.shop-by-category-section.color-scheme-1 .product-card-wrapper .card {
+    background: #F6F6F5;
+}
+.shop-by-category-section .product-card-wrapper .card--standard>.card__content .card__information {
+    padding: 10px 0 0;
+}
+.shop-by-category-section.color-scheme-1 .pro-benifit-list .pro-benifit {
+    background: #fff;
+}
+.shop-by-category-section .product-card-wrapper .card__heading {
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.2;
+}
+.shop-by-category-section .product-card-wrapper .card__heading a {
+    color: #1b1f23;
+}
+.shop-by-category-section .product-card-wrapper .product-short-dec p {margin: 5px 0 0;line-height: 1.2;font-size: 13px;}
+.shop-by-category-section .product-card-wrapper .card-information>.price {
+    color: #1b1f23;
+    font-size: 14px;
+    letter-spacing: 0;
+    margin: 0 0 8px;
+}
+.shop-by-category-section .product-card-wrapper .quick-add {
+    margin: 0;
+}
+@media (max-width: 1199px) {
+  .shop-by-category-top .category-tabs {
+    gap: 10px;
+  }
+}
+@media (max-width: 989px) {
+  .shop-by-category-top {
+    flex-flow: column nowrap;
+    gap: 20px;
+  }
+  .category-navigation {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+@media (max-width: 749px) {
+  .shop-by-category-top .category-tabs {
+    justify-content: flex-start;
+    overflow: auto;
+  }
+  .shop-by-category-top .category-tabs .category-tab {
+    flex: none;
+  }
+  .shop-by-category-top .category-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .shop-by-category-top {
+    gap: 10px;
+    margin: 0 0 2rem;
+  }
+  .category-navigation .link {
+    font-size: 14px;
+  }
+  .shop-by-category-section .product-card-wrapper .card {
+    padding: 12px;
+  }
+  .shop-by-category-section .product-card-wrapper .card__heading {
+    font-size: 14px;
+  }
+  .shop-by-category-section .product-card-wrapper .product-short-dec p {
+    margin: 8px 0 0;
+    font-size: 12px;
+  }
+  .shop-by-category-section .product-card-wrapper .card-information>.price {
+    font-size: 13px;
+  }
+  .shop-by-category-top .category-tabs .category-tab:after {
+    bottom: 0;
+  }
+}

@@ -1,0 +1,359 @@
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-article-card.css' | asset_url | stylesheet_tag }}
+{{ 'section-featured-blog.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.50 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.50 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign posts_displayed = section.settings.blog.articles_count
+  if section.settings.post_limit <= section.settings.blog.articles_count or section.settings.post_limit <= 4
+    assign posts_exceed_limit = true
+    assign posts_displayed = section.settings.post_limit
+  endif
+-%}
+<div class="blog color-{{ section.settings.color_scheme }} gradient{% if section.settings.heading == blank %} no-heading{% endif %}">
+  <div class="page-width-desktop isolate{% if posts_displayed < 3 %} page-width-tablet{% endif %} section-{{ section.id }}-padding">
+    {%- unless section.settings.heading == blank -%}
+      {% if section.settings.subheading != blank %}
+        <h6 class="sub-heading">{{ section.settings.subheading }}</h6>
+      {% endif %}
+      <div class="title-wrapper-with-link{% if posts_displayed > 2 %} title-wrapper--self-padded-tablet-down{% else %} title-wrapper--self-padded-mobile{% endif %} title-wrapper--no-top-margin">
+        <h2
+          id="SectionHeading-{{ section.id }}"
+          class="blog__title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          {% if settings.animations_reveal_on_scroll %}
+            data-cascade
+          {% endif %}
+        >
+          {{ section.settings.heading }}
+        </h2>
+
+        {%- if section.settings.blog != blank
+          and section.settings.show_view_all
+          and section.settings.post_limit < section.settings.blog.articles_count
+        -%}
+          <a
+            href="{{ section.settings.blog.url }}"
+            class="link underlined-link large-up-hide{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          >
+            {{ 'sections.featured_blog.view_all' | t }}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.show_view_all and section.settings.post_limit < section.settings.blog.articles_count -%}
+          <div
+            class="blog__view-all center small-hide medium-hide{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {% if settings.animations_reveal_on_scroll %}
+              data-cascade
+            {% endif %}
+          >
+            <a
+              href="{{ section.settings.blog.url }}"
+              id="ViewAll-{{ section.id }}"
+              class="blog__button button"
+              aria-labelledby="ViewAll-{{ section.id }} SectionHeading-{{ section.id }}"
+            >
+              {{ 'sections.featured_blog.view_all' | t }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endunless -%}
+
+    <slider-component class="slider-mobile-gutter{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <ul
+        id="Slider-{{ section.id }}"
+        class="blog__posts articles-wrapper contains-card contains-card--article{% if settings.blog_card_style == 'standard' %} contains-card--standard{% endif %} grid grid--peek grid--2-col-tablet grid--{{ section.settings.columns_desktop }}-col-desktop slider {% if posts_displayed > 2 %}slider--tablet{% else %}slider--mobile{% endif %}"
+        role="list"
+      >
+        {%- if section.settings.blog != blank and section.settings.blog.articles_count > 0 -%}
+          {%- for article in section.settings.blog.articles limit: section.settings.post_limit -%}
+            <li
+              id="Slide-{{ section.id }}-{{ forloop.index }}"
+              class="blog__post grid__item article slider__slide slider__slide--full-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+              {% if settings.animations_reveal_on_scroll %}
+                data-cascade
+                style="--animation-order: {{ forloop.index }};"
+              {% endif %}
+            >
+              {% render 'article-card',
+                blog: section.settings.blog,
+                article: article,
+                media_aspect_ratio: 1.66,
+                show_image: section.settings.show_image,
+                show_date: section.settings.show_date,
+                show_author: section.settings.show_author,
+                show_excerpt: true
+              %}
+            </li>
+          {%- endfor -%}
+        {%- else -%}
+          {% for i in (1..section.settings.post_limit) -%}
+            {%- assign placeholder_image_index = forloop.index0 | modulo: 3 | plus: 1 -%}
+            {%- assign placeholder_image = 'blog-apparel-' | append: placeholder_image_index -%}
+            <li
+              id="Slide-{{ section.id }}-{{ forloop.index }}"
+              class="blog__post grid__item article slider__slide slider__slide--full-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+              {% if settings.animations_reveal_on_scroll %}
+                data-cascade
+                style="--animation-order: {{ forloop.index }};"
+              {% endif %}
+            >
+              <div class="article-card-wrapper card-wrapper{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+                <div
+                  class="
+                    card article-card card--{{ settings.blog_card_style }}
+                    {% if settings.blog_card_style == 'card' %} color-{{ settings.blog_card_color_scheme }} gradient{% endif %}
+                    {% if section.settings.show_image %} card--media{% else %} card--text{% endif %}
+                  "
+                  style=" {% if settings.blog_card_style == 'standard' %} --ratio-percent: 100%;{% elsif settings.blog_card_style == 'card' %} --ratio-percent: 0%;{% endif %}"
+                >
+                  <div
+                    class="card__inner{% if settings.blog_card_style == 'standard' %} color-{{ settings.blog_card_color_scheme }} gradient{% endif %} ratio"
+                    style="--ratio-percent: 80%;"
+                  >
+                    {%- if section.settings.show_image == true -%}
+                      <div class="article-card__image-wrapper card__media">
+                        <div class="article-card__image media">
+                          {{ placeholder_image | placeholder_svg_tag: 'blog-placeholder-svg' }}
+                        </div>
+                      </div>
+                    {%- endif -%}
+                    <div class="card__content">
+                      <div class="card__information">
+                        <h3 class="card__heading h5">
+                          {{ 'sections.featured_blog.onboarding_title' | t }}
+                        </h3>
+                        <p class="article-card__excerpt rte-width">
+                          {{ 'sections.featured_blog.onboarding_content' | t }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card__content">
+                    <div class="card__information">
+                      <h3 class="card__heading h5">
+                        {{ 'sections.featured_blog.onboarding_title' | t }}
+                      </h3>
+                      <p class="article-card__excerpt rte-width">
+                        {{ 'sections.featured_blog.onboarding_content' | t }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          {%- endfor -%}
+        {%- endif -%}
+      </ul>
+      {%- if posts_exceed_limit -%}
+        <div class="slider-buttons{% if section.settings.post_limit < 3 %} medium-hide{% endif %}{% if section.settings.post_limit < 2 %} small-hide{% endif %} collection">
+          <button
+            type="button"
+            class="slider-button slider-button--prev"
+            name="previous"
+            aria-label="{{ 'general.slider.previous_slide' | t }}"
+          >
+            <span class="svg-wrapper">
+              <svg
+                width="10"
+                class="icon icon-left-arrow"
+                height="8"
+                viewBox="0 0 10 8"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M4.12123 0.145833L0.349805 3.64583C0.249805 3.74306 0.199805 3.86111 0.199805 4C0.199805 4.13889 0.249805 4.25694 0.349805 4.35417L4.12123 7.85417C4.37838 8.04861 4.62123 8.04861 4.8498 7.85417C5.0498 7.60417 5.0498 7.36806 4.8498 7.14583L1.9998 4.5H9.28552C9.5998 4.47222 9.77123 4.30556 9.7998 4C9.77123 3.69444 9.5998 3.52778 9.28552 3.5H1.9998L4.8498 0.854167C5.0498 0.631944 5.0498 0.395833 4.8498 0.145833C4.62123 -0.0486111 4.37838 -0.0486111 4.12123 0.145833Z" fill="#1B1F23"/>
+              </svg>
+            </span>
+          </button>
+          <button
+            type="button"
+            class="slider-button slider-button--next"
+            name="next"
+            aria-label="{{ 'general.slider.next_slide' | t }}"
+          >
+            <span class="svg-wrapper">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-left-arrow"
+                width="10"
+                height="8"
+                viewBox="0 0 10 8"
+                fill="none"
+              >
+                <path d="M5.87877 0.145833L9.6502 3.64583C9.75019 3.74306 9.80019 3.86111 9.80019 4C9.80019 4.13889 9.75019 4.25694 9.6502 4.35417L5.87877 7.85417C5.62162 8.04861 5.37877 8.04861 5.1502 7.85417C4.9502 7.60417 4.9502 7.36806 5.1502 7.14583L8.0002 4.5H0.714481C0.400195 4.47222 0.228767 4.30556 0.200195 4C0.228767 3.69444 0.400195 3.52778 0.714481 3.5H8.0002L5.1502 0.854167C4.9502 0.631944 4.9502 0.395833 5.1502 0.145833C5.37877 -0.0486111 5.62162 -0.0486111 5.87877 0.145833Z" fill="#1B1F23"/>
+              </svg>
+            </span>
+          </button>
+        </div>
+      {%- endif -%}
+    </slider-component>
+    {% comment %}
+      {%- if section.settings.show_view_all and section.settings.post_limit < section.settings.blog.articles_count -%}
+        <div
+          class="blog__view-all center small-hide medium-hide{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          {% if settings.animations_reveal_on_scroll %}
+            data-cascade
+          {% endif %}
+        >
+          <a
+            href="{{ section.settings.blog.url }}"
+            id="ViewAll-{{ section.id }}"
+            class="blog__button button"
+            aria-labelledby="ViewAll-{{ section.id }} SectionHeading-{{ section.id }}"
+          >
+            {{ 'sections.featured_blog.view_all' | t }}
+          </a>
+        </div>
+      {%- endif -%}
+    {% endcomment %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.featured-blog.name",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id":"subheading",
+      "label": "Sub Heading Text"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "t:sections.featured-blog.settings.heading.default",
+      "label": "t:sections.featured-blog.settings.heading.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        },
+        {
+          "value": "hxl",
+          "label": "t:sections.all.heading_size.options__4.label"
+        },
+        {
+          "value": "hxxl",
+          "label": "t:sections.all.heading_size.options__5.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "t:sections.featured-blog.settings.blog.label"
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.featured-blog.settings.post_limit.label"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.featured-blog.settings.columns_desktop.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "info": "t:sections.all.colors.has_cards_info",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "default": true,
+      "label": "t:sections.featured-blog.settings.show_image.label",
+      "info": "t:sections.featured-blog.settings.show_image.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "t:sections.featured-blog.settings.show_date.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": false,
+      "label": "t:sections.featured-blog.settings.show_author.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "t:sections.featured-blog.settings.show_view_all.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.featured-blog.presets.name"
+    }
+  ]
+}
+{% endschema %}

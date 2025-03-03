@@ -1,0 +1,86 @@
+.logo-list {
+  display: flex;
+  justify-content: space-between;
+}
+.logo-list .logo-left {
+  max-width: 310px;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+}
+.logo-list .recommendation {
+  background: #0000001A;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 11px 14px;
+  color: #1B1F23;
+  line-height: 1;
+  display: inline-block;
+}
+.logo-list .stars {
+  color: gold;
+  font-size: 20px;
+  line-height: 1;
+  margin-top: 10px;
+  margin-right: 8px;
+  display: flex;
+  gap: 1px;
+}
+.logo-list .stars svg {
+  vertical-align: middle;
+}
+.logo-list .reviews {
+  font-size: 16px;
+  color: #1B1F23;
+  margin-top: 8px;
+}
+.logo-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.logo-item img {
+  display: block;
+}
+.logo-list .logo-item {
+    flex: 1;
+    max-width: 120px;
+    padding: 11px 20px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    display: flex;
+}
+.logo-list .logo-item img {width: 100%;height: 18px;
+    vertical-align: middle;
+    object-fit: contain;}
+.logo-list .separate-line {
+    width: 1px;
+    display: block;
+    align-self: stretch;
+    background: #1B1F231A;
+}
+@media (max-width: 1210px) {
+  .logo-list .separate-line {
+    display: none;
+  }
+  .logo-list .logo-right {
+    width: 100%;
+  }
+}
+@media (max-width: 749px) {
+  .logo-right .logo-list {
+    gap: 5px;
+  }
+  .logo-list .logo-item {
+    padding: 5px 10px;
+    flex: 1 0 23%;
+    max-width: unset;
+  }
+  .logo-list .reviews {
+    font-size: 14px;
+  }
+}

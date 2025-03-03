@@ -1,0 +1,257 @@
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-with-video-section.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.50 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.50 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+
+<div
+  class="color-{{ section.settings.color_scheme }} isolate gradient"
+>
+  <div
+    class="product-with-video swiper section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% else %} page-width{% endif %}">
+        <div class="slider-buttons">
+          <div class="swiper-button-prev">
+            <span class="svg-wrapper">
+            <svg width="10" class="icon icon-left-arrow" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4.12123 0.145833L0.349805 3.64583C0.249805 3.74306 0.199805 3.86111 0.199805 4C0.199805 4.13889 0.249805 4.25694 0.349805 4.35417L4.12123 7.85417C4.37838 8.04861 4.62123 8.04861 4.8498 7.85417C5.0498 7.60417 5.0498 7.36806 4.8498 7.14583L1.9998 4.5H9.28552C9.5998 4.47222 9.77123 4.30556 9.7998 4C9.77123 3.69444 9.5998 3.52778 9.28552 3.5H1.9998L4.8498 0.854167C5.0498 0.631944 5.0498 0.395833 4.8498 0.145833C4.62123 -0.0486111 4.37838 -0.0486111 4.12123 0.145833Z" fill="#1B1F23"></path>
+            </svg>
+            </span>
+          </div>
+           <div class="collection__title title-wrapper title-wrapper--no-top-margin {% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% endif %}{% if show_desktop_slider %} collection__title--desktop-slider{% endif %}">
+            {%- if section.settings.sub-heading != blank -%}
+              <h6 class="sub-heading inline-richtext{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+                {{ section.settings.sub-heading }}
+              </h6>
+            {%- endif -%}
+              {%- if section.settings.title != blank -%}
+              <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+                {{ section.settings.title }}
+              </h2>
+            {%- endif -%}
+            {%- if section.settings.url -%}
+              <div class="center collection__view-all{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+                <a
+                  href="{{ section.settings.url }}"
+                  class="{% if section.settings.view_all_style == 'link' %}link underlined-link{% elsif section.settings.view_all_style == 'solid' %}button{% else %}button button--secondary{% endif %}"
+                >
+                  {{ 'sections.featured_collection.view_all' | t }}
+                </a>
+            </div>
+            {%- endif -%}
+          </div>
+          <div class="swiper-button-next">
+            <span class="svg-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-left-arrow" width="10" height="8" viewBox="0 0 10 8" fill="none">
+              <path d="M5.87877 0.145833L9.6502 3.64583C9.75019 3.74306 9.80019 3.86111 9.80019 4C9.80019 4.13889 9.75019 4.25694 9.6502 4.35417L5.87877 7.85417C5.62162 8.04861 5.37877 8.04861 5.1502 7.85417C4.9502 7.60417 4.9502 7.36806 5.1502 7.14583L8.0002 4.5H0.714481C0.400195 4.47222 0.228767 4.30556 0.200195 4C0.228767 3.69444 0.400195 3.52778 0.714481 3.5H8.0002L5.1502 0.854167C4.9502 0.631944 4.9502 0.395833 5.1502 0.145833C5.37877 -0.0486111 5.62162 -0.0486111 5.87877 0.145833Z" fill="#1B1F23"></path>
+           </svg>
+            </span>
+          </div>
+        </div>
+      <ul class="product-video-wrapper swiper-wrapper product-grid contains-card">
+        {%- for block in section.blocks -%}
+          <li
+            class="swiper-slide grid__item {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {% if settings.animations_reveal_on_scroll %}
+              data-cascade
+              style="--animation-order: {{ forloop.index }};"
+            {% endif %}
+          >
+            <div class="media-wrapper">
+              {% if block.settings.image != blank %}
+                <img src="{{ block.settings.image | image_url: width: block.settings.image.width , height: block.settings.image.height }}" />
+              {% elsif block.settings.video != blank %}
+                <div
+                    class="video-container"
+                    {% if section.settings.fullwidth %}
+                      style="width: 100%;"
+                    {% endif %}
+                  >
+                    {{
+                      block.settings.video
+                      | video_tag:
+                        controls: false,
+                        autoplay: true,
+                        loop: true,
+                        width: '100%'
+                    }}
+                  </div>
+                {% else %}
+              {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}              {% endif %}
+            </div>
+            {% render 'card-product',
+                card_product: block.settings.product,
+                media_aspect_ratio: "adapt",
+                image_shape: "default",
+                show_secondary_image: false,
+                show_vendor: false,
+                show_rating: false,
+                lazy_load: lazy_load,
+                skip_styles: false,
+                quick_add: "standard",
+                cart_drawer: true,
+                section_id: 24159029625111
+              %}
+          </li>
+        {%- endfor -%}
+      </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product with custom media",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "sub-heading",
+      "label": "Sub heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "t:sections.featured-collection.settings.title.default",
+      "label": "t:sections.featured-collection.settings.title.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        },
+        {
+          "value": "hxl",
+          "label": "t:sections.all.heading_size.options__4.label"
+        },
+        {
+          "value": "hxxl",
+          "label": "t:sections.all.heading_size.options__5.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.featured-collection.settings.description.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "t:sections.featured-collection.settings.full_width.label",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Link collection"
+    },
+    {
+      "type": "select",
+      "id": "view_all_style",
+      "label": "t:sections.featured-collection.settings.view_all_style.label",
+      "options": [
+        {
+          "value": "link",
+          "label": "t:sections.featured-collection.settings.view_all_style.options__1.label"
+        },
+        {
+          "value": "outline",
+          "label": "t:sections.featured-collection.settings.view_all_style.options__2.label"
+        },
+        {
+          "value": "solid",
+          "label": "t:sections.featured-collection.settings.view_all_style.options__3.label"
+        }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "info": "t:sections.all.colors.has_cards_info",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings":[
+        {
+          "type": "image_picker",
+          "id":"image",
+          "label": "Image"
+        },
+        {
+          "type":"video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label":"Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product with custom media"
+    }
+  ]
+}
+{% endschema %}

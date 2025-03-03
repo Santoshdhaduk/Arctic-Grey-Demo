@@ -1,0 +1,183 @@
+.video-text-wrapper {
+  position: relative;
+  display: flex;
+}
+.video-text-wrapper .autoplay-video_content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.video-text-wrapper .autoplay-video_content.text__wrapper--bottom-left {
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+.video-text-wrapper .autoplay-video_content.text__wrapper--bottom-right {
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.video-text-wrapper .autoplay-video_content.text__wrapper--bottom-center {
+  justify-content: flex-end;
+  align-items: center;
+}
+.video-text-wrapper .autoplay-video_content.text__wrapper--top-left {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.video-text-wrapper .autoplay-video_content.text__wrapper--top-right {
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+.video-text-wrapper .autoplay-video_content.text__wrapper--top-center {
+  justify-content: flex-start;
+  align-items: center;
+}
+.video-text-wrapper .autoplay-video_content.text__wrapper--center-left {
+  justify-content: center;
+  align-items: flex-start;
+}
+.video-text-wrapper .autoplay-video_content.text__wrapper--center-right {
+  justify-content: center;
+  align-items: flex-end;
+}
+.video-text-wrapper .autoplay-video_content.text__wrapper--center-center {
+  justify-content: center;
+  align-items: center;
+}
+.video-text-wrapper .autoplay-video_content .autoplay-video__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+.video-text-wrapper .autoplay-video_content.center .autoplay-video__buttons {
+  justify-content: center;
+}
+.video-text-wrapper .autoplay-video_content.right .autoplay-video__buttons {
+  justify-content: flex-end;
+}
+.video-text-wrapper .title-wrapper>.title {
+  margin: 0;
+}
+.video-text-wrapper .title-wrapper {
+  max-width: 840px;
+  width: 100%;
+}
+.video-text-wrapper .autoplay-video_content.center .title-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+}
+.video-text-wrapper .autoplay-video_content.right .title-wrapper {
+  margin-left: auto;
+}
+.video-text-wrapper .video-container {
+  position: absolute;
+  inset: 0;
+}
+.video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  vertical-align: middle;
+}
+.autoplay-video__buttons .button--secondary {
+  --color-button: 255, 255, 255;
+  --color-button-text: 255, 255, 255;
+  background: transparent;
+}
+.banner__box .banner__heading+* {
+  margin-top: 8px;
+  line-height: 1.15;
+  color: rgba(var(--color-foreground), 1);
+}
+.banner__buttons .button {
+  font-size: 16px;
+  font-weight: 500;
+  min-height: 50px;
+}
+.banner .banner__box .banner__heading+* {
+  margin-top: 8px;
+  line-height: 1.15;
+  color: rgba(var(--color-foreground), 1);
+}
+.banner .banner__buttons .button {
+  min-height: 50px;
+  font-weight: 500;
+  font-size: 16px;
+  max-width: 190px;
+  width: 100%;
+}
+.banner .banner__box>*+.banner__buttons {
+  max-width: 100%;
+  width: 100%;
+}
+.video-text-wrapper .video-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  vertical-align: middle;
+}
+.js body .menu-drawer {
+    height: auto;
+    width: calc(100% - 80px);
+    left: 40px;
+    border-radius: 0 0 8px 8px;
+    transform: translateY(-100%);
+}
+body .menu-open sticky-header.header-wrapper[data-sticky-type=always] .header:not(.drawer-menu).page-width {border-radius: 8px 8px 0 0;}
+@media (min-width: 750px) {
+  .video-text-wrapper.banner--adapt .video-container {
+    position: relative;
+    width: 100%;
+  }
+  .video-text-wrapper.banner--adapt .autoplay-video_content {
+    position: absolute;
+    inset: 0;
+    width: auto;
+    height: auto;
+  }
+}
+@media (max-width: 749px) {
+  .video-text-wrapper .video-container {
+    position: relative;
+  }
+  .video-text-wrapper {
+    flex-direction: column-reverse;
+  }
+  .video-text-wrapper *:not(.button),
+  .video-text-wrapper .title-wrapper>.title {
+    color: #1B1F23;
+  }
+  .video-text-wrapper.banner--adapt .video-container video {
+    aspect-ratio: 1;
+  }
+  div.title-wrapper {
+    margin-bottom: 2rem;
+  }
+  .autoplay-video__buttons .button--primary {
+    --color-button: 27, 31, 35;
+    --color-button-text: 255, 255, 255;
+  }
+  .autoplay-video__buttons .button--secondary {
+    --color-button: 27, 31, 35;
+    --color-button-text: 27, 31, 35;
+    background: transparent;
+  }
+  .banner .banner__buttons .button {
+    font-size: 14px;
+    max-width: 100%;
+    min-height: 45px;
+  }
+  .banner .banner__box {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  .video-text-wrapper .title-wrapper {
+    margin-bottom: 1rem;
+  }
+  .js body .menu-drawer {
+    width: calc(100% - 30px);
+    left: 15px;
+  }
+}

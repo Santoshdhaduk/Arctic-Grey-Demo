@@ -1,0 +1,203 @@
+.blend-title-wrapper {
+    text-align: center;
+}
+.blend-title-wrapper .title {
+    margin: 0;
+}
+.product-blends .product-blend {
+    padding: 0;
+    background: #fff;
+    border-radius: 8px;
+}
+.product-blends .product-blend-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+.product-blend-content .product-blend-left {
+    width: 100%;
+    border: 1px solid #0000001A;
+    border-radius: 8px 8px 0 0;
+}
+.product-blend-content .product-blend-right {
+    padding: 0;
+    border: 1px solid #0000001A;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+}
+.product-blend-right .main-heading {
+    font-size: 24px;
+    padding: 40px 50px 24px;
+    margin: 0;
+    background: #000;
+    color: #fff;
+}
+.product-blend-right .text-fields {
+    background: #000;
+    color: #fff;
+    padding: 0 50px 40px;
+    display: flex;
+    flex-flow: row wrap;
+    text-align: left;
+    gap: 20px;
+}
+.product-blend-right .text-fields .field {
+    flex: 1;
+    align-items: center;
+    gap: 20px;
+    font-size: 18px;
+    line-height: 1;
+}
+.product-blend-right .text-fields svg {
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+}
+.product-blend-right .text-fields .field:before,
+.product-blend-right .text-fields .field:after {
+    display: none;
+}
+.product-blend-right h3 {
+    margin: 0 0 24px;
+    font-size: 18px;
+}
+.ingredient-columns {
+    padding: 0 45px 30px;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+.ingredient-columns .ingredient-column {
+    padding: 0;
+    text-align: left;
+}
+.ingredient-columns  svg {
+    width: 45px;
+    height: 45px;
+    vertical-align: middle;
+    margin-bottom: 12px;
+}
+.ingredient-columns h4 {
+    margin: 0;
+    font-size: 16px;
+}
+.ingredient-columns p {
+    font-size: 14px;
+}
+.ingredient-column circle {
+    fill: #F6F6F5;
+}
+.ingredient-column svg g path {
+    fill: #1B1F23;
+}
+.product-blend-right .btn-wrapper .button {
+    width: 100%;
+    min-height: 50px;
+    font-size: 16px;
+}
+.product-blend-right .btn-wrapper {
+    padding: 0 45px 40px;
+    display: flex;
+}
+.product-blend-wrapper {
+    position: relative;
+}
+@media (min-width: 990px) {
+  .product-blend-content .product-blend-left {
+    flex: 0 0 40%;
+    max-width: 588px;
+    border-radius: 8px 0 0 8px;
+    display: flex;
+  }
+  .product-blend-wrapper {
+    display: flex;
+  }
+  .product-blends-wrap {
+    width: calc(100% - 140px);
+    margin: 0 auto;
+  }
+  .product-blend-content .product-blend-right {
+    border-radius: 0 8px 8px 0;
+  }
+  .product-blend-left img {
+    max-width: 356px;
+    margin: auto;
+    vertical-align: middle;
+  }
+}
+@media (max-width: 1199px) {
+  .product-blend-right .text-fields .field {
+    gap: 10px;
+  }
+  .ingredient-columns {
+    gap: 10px;
+    padding: 0 30px 25px;
+  }
+  .product-blend-right .main-heading {
+    padding: 40px 30px 24px;
+  }
+  .product-blend-right .text-fields {
+    padding: 0 30px 30px;
+    text-align: left;
+  }
+  .product-blend-right .btn-wrapper {
+    padding: 0 30px 35px;
+  }
+}
+@media (max-width: 989px) {
+  .product-blends-wrap .swiper-button-next, .product-blends-wrap .swiper-button-prev {
+    top: -70px;
+  }
+  .product-blends-wrap .swiper-button-next {
+    right: 0;
+  }
+  .product-blends-wrap .swiper-button-prev {
+    left: 0;
+  }
+  .blend-title-wrapper.title-wrapper {
+    width: calc(100% - 9rem);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media (max-width: 749px) {
+  .product-blend-content .product-blend-left {
+    padding: 20px;
+  }
+  .product-blend-right .main-heading {
+    padding: 30px 20px 20px;
+  }
+  .product-blend-right .text-fields {
+    padding: 0 20px 24px;
+    gap: 10px;
+  }
+  .product-blend-right .text-fields .field {
+    font-size: 16px;
+    margin: 0;
+  }
+  .ingredient-columns {
+    padding: 0 20px 14px;
+  }
+  .product-blend-right .btn-wrapper {
+    padding: 0 20px 24px;
+  }
+  .ingredient-columns {
+    flex-wrap: wrap;
+  }
+  .ingredient-columns .ingredient-column {
+    flex: 0 0 100%;
+  }
+  .ingredient-columns p {
+    font-size: 12px;
+    margin-bottom: 0;
+  }
+  .product-blend-right .text-fields svg {
+    width: 40px;
+    height: 40px;
+  }
+  .product-blend-right h3 {
+    margin: 0 0 18px;
+  }
+  .product-blend-right .btn-wrapper .button {
+    min-height: 45px;
+    font-size: 14px;
+  }
+}
