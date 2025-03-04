@@ -35,6 +35,10 @@
           <div class="logo-item">
             {{ block.settings.logo_image | image_url: width: 120 | image_tag }}
           </div>
+          {% else %}
+           <div class="logo-item">
+             {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
         {% endif %}
       {% endfor %}
     </div>
