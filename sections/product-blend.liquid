@@ -50,11 +50,19 @@
               </div>
 
               <div class="product-blend-right">
+                {% if block.settings.main_heading != blank %}
                 <h2 class="main-heading {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">{{ block.settings.main_heading }}</h2>
+                {% endif %}
                 <div class="text-fields {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+                  {% if block.settings.text_field_1 != blank %}
                   <div class="field"> {% render 'leaf-black-icon' %} {{ block.settings.text_field_1 }}</div>
+                  {% endif %}
+                  {% if block.settings.text_field_2 != blank %}
                   <div class="field"> {% render 'leaf-black-icon' %} {{ block.settings.text_field_2 }}</div>
+                  {% endif %}
+                  {% if block.settings.text_field_3 != blank %}
                   <div class="field"> {% render 'leaf-black-icon' %} {{ block.settings.text_field_3 }}</div>
+                  {% endif %}
                 </div>
                 <div class="ingredients">
                   <h3 class="{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">Active Ingredients</h3>
