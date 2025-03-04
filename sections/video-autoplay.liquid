@@ -76,22 +76,20 @@
         {%- endif -%}
       </div>
     {%- endif -%}
-    {% if section.settings.image != blank %}
-      <div
-        class="video-container"
-        {% if section.settings.fullwidth %}
-          style="width: 100%;"
-        {% endif %}
-      >
-        <img src="{{ section.settings.image | image_url: width: section.settings.image.width }}" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" alt="{{ section.settings.image.alt }}">
-      </div>
-    {% elsif section.settings.self_hosted_video != blank %}
-      <div
-        class="video-container"
-        {% if section.settings.fullwidth %}
-          style="width: 100%;"
-        {% endif %}
-      >
+    <div
+      class="video-container"
+      {% if section.settings.fullwidth %}
+        style="width: 100%;"
+      {% endif %}
+    >
+      {% if section.settings.image != blank %}
+        <img
+          src="{{ section.settings.image | image_url: width: section.settings.image.width }}"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          alt="{{ section.settings.image.alt }}"
+        >
+      {% elsif section.settings.self_hosted_video != blank %}
         {{
           section.settings.self_hosted_video
           | video_tag:
@@ -100,17 +98,10 @@
             loop: true,
             width: '100%'
         }}
-      </div>
       {% else %}
-      <div
-        class="video-container"
-        {% if section.settings.fullwidth %}
-          style="width: 100%;"
-        {% endif %}
-      >
         {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
-      </div>
-    {% endif %}
+      {% endif %}
+    </div>
   </div>
 </div>
 {% schema %}
