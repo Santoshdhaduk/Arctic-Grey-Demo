@@ -31,11 +31,13 @@
     </div>
       {% for block in section.blocks %}
         <div class="gallery-item" {{ block.shopify_attributes }}>
-          {% if block.settings.image != blank %}
             <a href="{{ block.settings.link | default: '#' }}">
+              {% if block.settings.image != blank %}
               <img src="{{ block.settings.image | img_url: 'large' }}" alt="{{ block.settings.image.alt | escape }}">
+                {% else %}
+                {{ 'image' | placeholder_svg_tag }}
+              {% endif %}
             </a>
-          {% endif %}
         </div>
       {% endfor %}
     </div>
