@@ -59,26 +59,34 @@
                 <div class="ingredients">
                   <h3 class="{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">Active Ingredients</h3>
                   <div class="ingredient-columns">
+                    {% if block.settings.ingredient_1_heading != blank or block.settings.ingredient_1_description != blank %}
                     <div class="ingredient-column {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
                       {% render 'leaf-black-icon' %}
                       <h4>{{ block.settings.ingredient_1_heading }}</h4>
                       <p>{{ block.settings.ingredient_1_description }}</p>
                     </div>
+                    {% endif %}
+                    {% if block.settings.ingredient_2_heading != blank or block.settings.ingredient_2_description != blank %}
                     <div class="ingredient-column {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
                       {% render 'leaf-black-icon' %}
                       <h4>{{ block.settings.ingredient_2_heading }}</h4>
                       <p>{{ block.settings.ingredient_2_description }}</p>
                     </div>
+                    {% endif %}
+                    {% if block.settings.ingredient_3_heading != blank or block.settings.ingredient_3_description != blank %}                   
                     <div class="ingredient-column {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
                       {% render 'leaf-black-icon' %}
                       <h4>{{ block.settings.ingredient_3_heading }}</h4>
                       <p>{{ block.settings.ingredient_3_description }}</p>
                     </div>
+                    {% endif %}
                   </div>
                 </div>
+                {% if block.settings.button_label != blank %}
                 <div class="btn-wrapper {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
                   <a href="{{ block.settings.button_link }}" class="button button--primary">{{ block.settings.button_label }}</a>
                 </div>
+                {% endif %}
               </div>
             </div>
           </div>
